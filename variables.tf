@@ -2,12 +2,23 @@ variable "bucket_name" {
   description = "bucket name"
 }
 
-variable "my_devops_github_role" {
-  description = "github iam role" # "arn:aws:iam::947500280148:role/GitHubActionsRole" #MY_DEVOPS
-  default     = null
+variable "env_config" {
+  description = "Environment configuration"
+  type = object({
+    env_name    = string,
+    aws_region  = string,
+    aws_profile = string,
+    aws_account = string
+  })
 }
 
-variable "my_dev_github_role" {
-  description = "github iam role" # "arn:aws:iam::767847069565:role/GitHubActionsRole" #MY_DEV_ENVIRONMENT
-  default     = null
+variable "deploy_role_arn" {
+  default     = "GitHubActionsRole"
+  description = "Deployment IAM Role ARN"
+  type        = string
+}
+
+variable "module_versions" {
+  type        = map(any)
+  description = "module versions"
 }
