@@ -1,17 +1,23 @@
 provider "aws" {
-  alias  = "nonprod"
-  region = "eu-west-1"
-
-  assume_role {
-    role_arn = "arn:aws:iam::767847069565:role/GitHubActionsRole" #MY_DEV_ENVIRONMENT
+  region  = "eu-west-1"
+  alias   = "MY_DEV_ENVIRONMENT"
+  profile = var.my_dev_github_role != null ? null : "MY_DEV_ENVIRONMENT"
+  dynamic "assume_role" {
+    for_each = var.my_dev_github_role != null ? [var.my_dev_github_role] : []
+    content {
+      role_arn    = var.my_dev_github_role
+    }
   }
 }
 
 provider "aws" {
-  alias  = "prod"
-  region = "eu-west-1"
-
-  assume_role {
-    role_arn = "arn:aws:iam::947500280148:role/GitHubActionsRole" #MY_DEVOPS
+  region  = "eu-west-1"
+  alias   = "MY_DEVOPS"
+  profile = var.my_devops_github_role != null ? null : "MY_DEVOPS"
+  dynamic "assume_role" {
+    for_each = var.my_devops_github_role != null ? [var.my_devops_github_role] : []
+    content {
+      role_arn    = var.my_devops_github_role
+    }
   }
 }

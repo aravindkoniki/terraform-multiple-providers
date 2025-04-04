@@ -3,7 +3,7 @@ module "non_prod_bucket" {
   bucket_name = var.bucket_name
 
   providers = {
-    aws = aws.nonprod
+    aws = aws.MY_DEV_ENVIRONMENT
   }
 }
 
@@ -13,6 +13,6 @@ module "prod_bucket" {
   bucket_name = var.bucket_name
 
   providers = {
-    aws = aws.prod
+    aws = aws.MY_DEVOPS
   }
 }
